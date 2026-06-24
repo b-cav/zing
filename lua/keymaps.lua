@@ -75,7 +75,7 @@ map("n", "<leader>bb", telescope_normal(function()
 end), "Browse backup dir")
 
 map("n", "<leader>bc", telescope_normal(function()
-  builtin().find_files({ cwd = vim.fn.expand("~/.config/nvim"), hidden = true })
+  builtin().find_files({ cwd = vim.fn.expand("~/.config/nvim") })
 end), "Browse config dir")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

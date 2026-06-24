@@ -11,20 +11,23 @@ vim.g.maplocalleader = " "
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- Clipboard
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-vim.g.clipboard = {
-  name = "xclip",
-  copy = {
-    ["+"] = "xclip -selection clipboard",
-    ["*"] = "xclip -selection primary",
-  },
-  paste = {
-    ["+"] = "xclip -selection clipboard -o",
-    ["*"] = "xclip -selection primary -o",
-  },
-  cache_enabled = true,
-}
-
-opt.clipboard = "unnamedplus" -- Sync to external clipboard
+if vim.fn.executable("xclip") == 1 then
+  vim.g.clipboard = {
+    name = "xclip",
+    copy = {
+      ["+"] = "xclip -selection clipboard",
+      ["*"] = "xclip -selection primary",
+    },
+    paste = {
+      ["+"] = "xclip -selection clipboard -o",
+      ["*"] = "xclip -selection primary -o",
+    },
+    cache_enabled = true,
+  }
+  opt.clipboard = "unnamedplus" -- Sync to external clipboard
+else
+  -- Don't try to sync w/o xclip
+end
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- Files & backups
