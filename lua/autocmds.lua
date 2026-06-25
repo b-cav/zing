@@ -50,6 +50,11 @@ local function build_header(comment_style)
       "# Description: ",
       "#",
       "",
+      "def main() :",
+      "",
+      "if __name__ == \"__main__\" :",
+      "    main()",
+      "",
     }
   elseif comment_style == "jl" then
     return {

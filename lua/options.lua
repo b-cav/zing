@@ -24,10 +24,21 @@ if vim.fn.executable("xclip") == 1 then
     },
     cache_enabled = true,
   }
-  opt.clipboard = "unnamedplus" -- Sync to external clipboard
 else
-  -- Don't try to sync w/o xclip
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    },
+    paste = {
+      ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    },
+  }
 end
+
+opt.clipboard = "unnamedplus" -- Sync to external clipboard
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- Files & backups
@@ -99,6 +110,8 @@ opt.listchars = {
   extends = "…",
   precedes = "…",
 }
+opt.cmdheight = 1
+opt.laststatus = 0
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- Splits
@@ -119,5 +132,4 @@ opt.mouse = "a"
 opt.updatetime = 250
 opt.timeoutlen = 300
 opt.isfname:append("@-@") -- Treat @ as part of filenames
-opt.cmdheight = 1
 
