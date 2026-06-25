@@ -27,7 +27,7 @@ return {
         inverse = true, -- invert background for search, diffs, statuslines and errors
         contrast = "",
         palette_overrides = {
-          dark0 = "#302f28",
+          -- dark0 = "#302f28",
         },
         overrides = {},
         dim_inactive = false,
@@ -65,6 +65,32 @@ return {
           lualine_y = { "progress" },
           lualine_z = { "location" },
         },
+      })
+    end,
+  },
+
+  -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  -- image.nvim
+  -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  {
+    "3rd/image.nvim",
+    lazy = false,
+    rocks = {
+        hererocks = true,  -- recommended if you do not have global installation of Lua 5.1.
+    },
+    config = function()
+      require("image").setup({
+        backend = "kitty",
+        integrations = {
+          markdown = {
+            enabled = true,
+            clear_in_insert_mode = false,
+            download_remote_images = true,
+            only_render_image_at_cursor = false,
+            floating_windows = false,
+          },
+        },
+        max_height_window_percentage = 50,
       })
     end,
   },
