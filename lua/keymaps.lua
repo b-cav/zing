@@ -104,10 +104,16 @@ map("n", "<leader>q",  "<cmd>q<CR>",           "Quit")
 map("n", "<leader>wq", "<cmd>wq<CR>",          "Save and quit")
 map("n", "<leader>/",  "gcc",                  "Toggle comment (line)")
 map("v", "<leader>/",  "gc",                   "Toggle comment (selection)")
+
+
 map("n", "<leader>tw", function()
   vim.opt_local.wrap = not vim.opt_local.wrap:get()
 end, "Toggle line wrap")
 map("n", "<leader>s", "ggVG", "Select all")
+
+map("n", "<leader>tl", function()
+  vim.opt_local.relativenumber = not vim.opt_local.relativenumber:get()
+end, "Toggle relative/absolute line numbers")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- C/C++ headers
