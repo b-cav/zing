@@ -1,5 +1,4 @@
 -- ~/.config/nvim/lua/plugins/navigation.lua
-
 return {
   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   -- oil.nvim
@@ -8,18 +7,18 @@ return {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
-    opts = {
-      default_file_explorer = true,
-      view_options = {
-        show_hidden = true,
-      },
-      keymaps = {
-        ["<C-h>"] = false,
-        ["<C-l>"] = false,
-      },
-    },
+    config = function(_, opts)
+      local oil_module = require("oil")
+      oil_module.setup({
+        default_file_explorer = true,
+        view_options = { show_hidden = true },
+        keymaps = {
+          ["<C-h>"] = false,
+          ["<C-l>"] = false,
+        },
+      })
+    end,
   },
-
   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   -- telescope.nvim
   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -34,7 +33,6 @@ return {
     config = function()
       local telescope = require("telescope")
       local actions = require("telescope.actions")
-
       telescope.setup({
         defaults = {
           mappings = {

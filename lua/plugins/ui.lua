@@ -1,5 +1,23 @@
 -- ~/.config/nvim/lua/plugins/ui.lua
 
+-- Mod gruvbox for lualine
+local lualine_gruvbox = {
+  normal = {
+    a = { fg = "#fbf1c7", bg = "#282828" },
+    b = { fg = "#fbf1c7", bg = "#282828" },
+    c = { fg = "#fbf1c7", bg = "#282828" },
+  },
+  insert  = { a = { fg = "#fbf1c7", bg = "#282828" } },
+  visual  = { a = { fg = "#fbf1c7", bg = "#282828" } },
+  replace = { a = { fg = "#fbf1c7", bg = "#282828" } },
+  command = { a = { fg = "#fbf1c7", bg = "#282828" } },
+  inactive = {
+    a = { fg = "#a89984", bg = "#282828" },
+    b = { fg = "#a89984", bg = "#282828" },
+    c = { fg = "#a89984", bg = "#282828" },
+  },
+}
+
 return {
   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   -- gruvbox.nvim color scheme
@@ -52,7 +70,7 @@ return {
     config = function()
       require("lualine").setup({
         options = {
-          theme = "auto",
+          theme = gruvbox,
           section_separators = "",
           component_separators = "|",
           globalstatus = true,
@@ -61,11 +79,38 @@ return {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diff" },
           lualine_c = { { "filename", path = 1 } },
-          lualine_x = { "diagnostics", "filetype" },
-          lualine_y = { "progress" },
-          lualine_z = { "location" },
+          lualine_x = {
+            "diagnostics",
+            "filetype",
+            "progress",
+          },
+          lualine_y = { "location" },
+          lualine_z = {
+            {
+              function() return os.date("%H:%M") end,
+            },
+          },
         },
       })
     end,
   },
+
+  -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  -- nvim-colorizer
+  -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  {
+    "catgoose/nvim-colorizer.lua",
+    event = "BufReadPre",
+    opts = {
+      filetypes = { "*" }, -- all filetypes
+      user_default_options = {
+        RGB = true,
+        RRGGBB = true,
+        names = false,
+        RRGGBBAA = true,
+        mode = "background",
+      },
+    },
+  },
 }
+

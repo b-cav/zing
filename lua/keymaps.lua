@@ -29,9 +29,6 @@ map("n", "<C-Down>",  "<C-w>-", "Shrink split down")
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- Editing utilities
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
--- Strip trailing whitespace
-map("n", "<leader>ws", "<cmd>%s/\\s\\+$//e<CR>", "Strip trailing whitespace")
-
 -- Keep cursor centered when jumping
 map("n", "<C-d>", "<C-d>zz", "Scroll down and center")
 map("n", "<C-u>", "<C-u>zz", "Scroll up and center")
@@ -41,6 +38,22 @@ map("n", "N",     "Nzzzv",   "Prev match centered")
 -- Move selected lines up/down in visual mode
 map("v", "J", ":m '>+1<CR>gv=gv", "Move selection down")
 map("v", "K", ":m '<-2<CR>gv=gv", "Move selection up")
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- Leader - editing utilities
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- Strip trailing whitespace
+map("n", "<leader>ws", "<cmd>%s/\\s\\+$//e<CR>", "Strip trailing whitespace")
+
+-- Tabs to spaces
+map("n", "<leader>wt", "<cmd>set expandtab | retab<CR>", "Convert all tabs to spaces")
+
+-- Toggle comments
+map("n", "<leader>/", function() require("Comment.api").toggle.linewise.current() end, "Toggle comment (line)")
+map("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", "Toggle comment (selection)")
+-- VSCode version
+map("n", "\31", function() require("Comment.api").toggle.linewise.current() end, "Toggle comment (line)")
+map("v", "\31", "<Plug>(comment_toggle_linewise_visual)", "Toggle comment (selection)")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- Leader — oil.nvim
@@ -102,8 +115,6 @@ end, "Toggle LSP error comments (virtual text)")
 map("n", "<leader>w",  "<cmd>w<CR>",           "Save")
 map("n", "<leader>q",  "<cmd>q<CR>",           "Quit")
 map("n", "<leader>wq", "<cmd>wq<CR>",          "Save and quit")
-map("n", "<leader>/",  "gcc",                  "Toggle comment (line)")
-map("v", "<leader>/",  "gc",                   "Toggle comment (selection)")
 
 -- Toggle line wrap
 map("n", "<leader>tw", function()
@@ -115,6 +126,8 @@ map("n", "<leader>s", "ggVG", "Select all")
 map("n", "<leader>tl", function()
   vim.opt_local.relativenumber = not vim.opt_local.relativenumber:get()
 end, "Toggle relative/absolute line numbers")
+
+map("n", "<leader>gt", "<cmd>vsp | terminal<CR>", "Open terminal in vsplit")
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- C/C++ headers

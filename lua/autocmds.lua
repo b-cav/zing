@@ -136,3 +136,23 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
   nested = true,
 })
+
+-- Discard unsaved changes in oil
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "oil",
+  callback = function(args)
+    -- 1. Prevent E37 when switching files or typing :q
+    vim.opt_local.buftype = "nofile"
+    vim.opt_local.bufhidden = "hide"
+
+    -- 2. Clean up when leaving so it doesn't clutter your buffer list
+    vim.api.nvim_create_autocmd("BufLeave", {
+      buffer = args.buf,
+      callback = function()
+        -- Mark as unmodified so Neovim lets go completely
+        vim.bo[args.buf].modified = false
+      end,
+    })
+  end,
+})
+
