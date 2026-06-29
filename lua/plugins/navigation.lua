@@ -24,7 +24,7 @@ return {
         desc = "Open oil directly as the startup buffer",
         callback = function()
           if vim.fn.argc() == 0 and vim.bo.filetype == "" then
-            vim.cmd("enew | oil")
+            vim.cmd("enew | Oil")
           end
         end,
         nested = true,
