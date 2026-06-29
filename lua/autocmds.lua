@@ -51,6 +51,7 @@ local function build_header(comment_style)
       "#",
       "",
       "def main() :",
+      "    pass",
       "",
       "if __name__ == \"__main__\" :",
       "    main()",
