@@ -25,6 +25,7 @@ if vim.fn.executable("xclip") == 1 then
     cache_enabled = true,
   }
 else
+  -- Complicated mess to get it working over ssh
   vim.g.clipboard = {
     name = "OSC 52",
     copy = {
@@ -32,8 +33,16 @@ else
       ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
     },
     paste = {
-      ['+'] = function () end,
-      ['*'] = function () end,
+      ["+"] = function()
+        local reg = vim.fn.getreg('"')
+        if reg == "" then return {} end
+        return vim.split(reg, "\n")
+      end,
+      ["*"] = function()
+        local reg = vim.fn.getreg('"')
+        if reg == "" then return {} end
+        return vim.split(reg, "\n")
+      end,
     },
   }
 end
